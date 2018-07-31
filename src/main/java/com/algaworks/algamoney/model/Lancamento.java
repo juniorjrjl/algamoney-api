@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -25,40 +25,39 @@ import lombok.Setter;
 @Table(name = "lancamento")
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"codigo"})
+@Getter @Setter
 public class Lancamento implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Getter @Setter
 	private Long codigo;
 	
-	@Getter @Setter
+	@NotNull
 	private String descricao;
 	
-	@Getter @Setter
 	@Column(name = "data_vencimento")
 	private LocalDate dataVencimento;
 	
-	@Getter @Setter
 	@Column(name = "data_pagamento")
 	private LocalDate dataPagamento;
 	
-	@Getter @Setter
+	@NotNull
 	private BigDecimal valor;
 	
-	@Getter @Setter
 	private String observacao;
 	
+	@NotNull
 	@Enumerated(EnumType.STRING)
-	@Getter @Setter
 	private TipoLancamento tipo;
 	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "codigo_categoria")
 	private Categoria categoria;
 	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "codigo_pessoa")
 	private Pessoa pessoa;

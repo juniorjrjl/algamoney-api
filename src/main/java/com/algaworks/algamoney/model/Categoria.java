@@ -19,16 +19,16 @@ import lombok.Setter;
 @Table(name = "categoria")
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"codigo"})
+@Getter @Setter
 public class Categoria implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Getter @Setter
+	
 	private long codigo;
 	
-	@Getter @Setter
 	@NotNull
 	@Size(min = 3, max = 50)
 	private String nome;
