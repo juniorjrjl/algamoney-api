@@ -1,9 +1,12 @@
 package com.algaworks.algamoney.service;
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.algaworks.algamoney.model.Pessoa;
 import com.algaworks.algamoney.repository.PessoaRepository;
@@ -32,6 +35,10 @@ public class PessoaService {
 			throw new EmptyResultDataAccessException(1);
 		}
 		return pessoaSalva;
+	}
+	
+	public List<Pessoa> listar(String nome){
+		return StringUtils.isEmpty(nome) ? pessoaRepository.findAll(): pessoaRepository.findByNomeContaining(nome);
 	}
 	
 }

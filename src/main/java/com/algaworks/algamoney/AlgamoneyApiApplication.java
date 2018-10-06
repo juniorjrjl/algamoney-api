@@ -22,7 +22,7 @@ public class AlgamoneyApiApplication {
 		SpringApplication.run(AlgamoneyApiApplication.class, args);
 	}
 	
-	@Bean
+	/*@Bean
     public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurerAdapter() {
             @Override
@@ -30,6 +30,6 @@ public class AlgamoneyApiApplication {
                 registry.addMapping(algamoneyApiProperty.getSeguranca().getOrigemPermitida());
             }
         };
-    }
+    }*/
 	
 }

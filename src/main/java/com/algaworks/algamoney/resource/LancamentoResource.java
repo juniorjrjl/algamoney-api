@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -45,7 +46,7 @@ public class LancamentoResource {
 	private ApplicationEventPublisher publisher;
 	
 	@Autowired
-	private LancamentoService lacamentoService;
+	private LancamentoService lancamentoService;
 	
 	@Autowired
 	private MessageSource messageSource;
@@ -72,9 +73,35 @@ public class LancamentoResource {
 	@PostMapping
 	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_LANCAMENTO') and #oauth2.hasScope('write')")
 	public ResponseEntity<Lancamento> criar(@Valid @RequestBody Lancamento lancamento, HttpServletResponse response) {
-		Lancamento lancamentoSalvo = lacamentoService.salvar(lancamento);
+		Lancamento lancamentoSalvo = lancamentoService.salvar(lancamento);
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, lancamento.getCodigo()));
 		return ResponseEntity.status(HttpStatus.CREATED).body(lancamentoSalvo);
+	}
+	
+	@PutMapping("/{codigo}")
+	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_LANCAMENTO')")
+	public ResponseEntity<Lancamento> atualizar(@PathVariable Long codigo, @Valid @RequestBody Lancamento lancamento) {
+		try {
+			Lancamento lancamentoSalvo = lancamentoService.atualizar(codigo, lancamento);
+			return ResponseEntity.ok(lancamentoSalvo);
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	@DeleteMapping("/{codigo}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@PreAuthorize("hasAuthority('ROLE_REMOVER_LANCAMENTO') and #oauth2.hasScope('write')")
+	public void remover(@PathVariable Long codigo) {
+		lancamentoRepository.delete(codigo);
+	}
+	
+	@ExceptionHandler({IllegalArgumentException.class})
+	public ResponseEntity<Object> handlerIllegalArgumentException(PessoaInexistenteOuInativoException ex){
+		String mensagemUsuario = messageSource.getMessage("", null, LocaleContextHolder.getLocale());
+		String mensagemDesenvolvedor = ex.toString();
+		List<ErrorHandler> erros = Arrays.asList(new ErrorHandler(mensagemUsuario, mensagemDesenvolvedor));
+		return ResponseEntity.badRequest().body(erros);
 	}
 	
 	@ExceptionHandler({PessoaInexistenteOuInativoException.class})
@@ -83,13 +110,6 @@ public class LancamentoResource {
 		String mensagemDesenvolvedor = ex.toString();
 		List<ErrorHandler> erros = Arrays.asList(new ErrorHandler(mensagemUsuario, mensagemDesenvolvedor));
 		return ResponseEntity.badRequest().body(erros);
-	}
-	
-	@DeleteMapping("/{codigo}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@PreAuthorize("hasAuthority('ROLE_REMOVER_LANCAMENTO') and #oauth2.hasScope('write')")
-	public void remover(@PathVariable Long codigo) {
-		lancamentoRepository.delete(codigo);
 	}
 	
 }
