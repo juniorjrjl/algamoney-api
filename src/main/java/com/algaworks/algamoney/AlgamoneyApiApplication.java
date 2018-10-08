@@ -5,12 +5,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.algaworks.algamoney.config.property.AlgamoneyApiProperty;
 
+@Configuration
 @SpringBootApplication
 @EnableConfigurationProperties(AlgamoneyApiProperty.class)
 public class AlgamoneyApiApplication {
@@ -27,7 +29,8 @@ public class AlgamoneyApiApplication {
 		return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping(algamoneyApiProperty.getSeguranca().getOrigemPermitida());
+                registry.addMapping(algamoneyApiProperty.getSeguranca().getOrigemPermitida())
+                	.allowedMethods("POST", "GET", "DELETE", "PUT", "OPTIONS");
             }
         };
     }*/
