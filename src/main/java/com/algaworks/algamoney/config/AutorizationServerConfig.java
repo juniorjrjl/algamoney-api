@@ -7,9 +7,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
@@ -21,17 +21,19 @@ import com.algaworks.algamoney.config.token.CustomTokenEnhancer;
 
 @Profile("oauth-security")
 @Configuration
-@EnableAuthorizationServer
 public class AutorizationServerConfig extends AuthorizationServerConfigurerAdapter{
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
 	
+	@Autowired
+	private UserDetailsService userDetailsService;
+	
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.inMemory()
 			.withClient("angular")
-			.secret("@ngul@r0")
+			.secret("$2a$10$6CfxFlYTNc2kBkvhtD3xvOsR6Y7Z13MgFopcW.Ij8SdEbA22QWuVW")//@ngul@r0
 			.scopes("read", "write")
 			.authorizedGrantTypes("password", "refresh_token")
 			.accessTokenValiditySeconds(1800)
@@ -46,6 +48,7 @@ public class AutorizationServerConfig extends AuthorizationServerConfigurerAdapt
 			.tokenStore(tokenStore())
 			.tokenEnhancer(tokenEnhancerChain)
 			.reuseRefreshTokens(false)
+			.userDetailsService(userDetailsService)
 			.authenticationManager(authenticationManager);
 	}
 	

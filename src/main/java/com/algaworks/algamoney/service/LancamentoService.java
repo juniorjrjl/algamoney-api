@@ -3,11 +3,11 @@ package com.algaworks.algamoney.service;
 import java.io.InputStream;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +74,7 @@ public class LancamentoService {
 	}
 	
 	public Lancamento salvar(Lancamento lancamento) {
-		Pessoa pessoa = pessoaRepository.findOne(lancamento.getPessoa().getCodigo());
+		Pessoa pessoa = pessoaRepository.getOne(lancamento.getPessoa().getCodigo());
 		if ((pessoa == null) || (pessoa.isInativo())) {
 			throw new PessoaInexistenteOuInativoException();
 		}
@@ -99,19 +99,18 @@ public class LancamentoService {
 	}
 	
 	private void validarPessoa(Lancamento lancamento) {
-		Pessoa pessoa = null;
-		pessoa = pessoaRepository.findOne(lancamento.getPessoa().getCodigo());
- 		if (pessoa == null || pessoa.isInativo()) {
+		Optional<Pessoa> pessoa = pessoaRepository.findById(lancamento.getPessoa().getCodigo());
+ 		if (!pessoa.isPresent() || pessoa.get().isInativo()) {
 			throw new PessoaInexistenteOuInativoException();
 		}
 	}
 	
 	private Lancamento buscarLancamentoExistente(Long codigo) {
-		Lancamento lancamentoSalvo = lancamentoRepository.findOne(codigo);
-		if (lancamentoSalvo == null) {
+		Optional<Lancamento> lancamentoSalvo = lancamentoRepository.findById(codigo);
+		if (!lancamentoSalvo.isPresent()) {
 			throw new IllegalArgumentException();
 		}
-		return lancamentoSalvo;
+		return lancamentoSalvo.get();
 	}
 	
 	public byte[] relatorioPorPessoa(LocalDate inicio, LocalDate fim) throws JRException {

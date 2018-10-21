@@ -8,14 +8,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import groovy.transform.EqualsAndHashCode;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Table(name = "cidade")
 @Getter @Setter
-@EqualsAndHashCode(includes = {"codigo"})
+@EqualsAndHashCode(of = {"codigo"})
 public class Cidade implements Serializable{
 
 	private static final long serialVersionUID = 1L;
