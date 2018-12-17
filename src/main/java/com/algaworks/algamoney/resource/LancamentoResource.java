@@ -1,6 +1,6 @@
 package com.algaworks.algamoney.resource;
 
-import java.io.IOException;
+//import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -32,9 +32,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
+//import org.springframework.web.multipart.MultipartFile;
 
-import com.algaworks.algamoney.dto.Anexo;
+//import com.algaworks.algamoney.dto.Anexo;
 import com.algaworks.algamoney.dto.LancamentoEstatisticaCategoria;
 import com.algaworks.algamoney.dto.LancamentoEstatisticaDia;
 import com.algaworks.algamoney.event.RecursoCriadoEvent;
@@ -45,7 +45,7 @@ import com.algaworks.algamoney.repository.filter.LancamentoFilter;
 import com.algaworks.algamoney.repository.projection.ResumoLancamento;
 import com.algaworks.algamoney.service.LancamentoService;
 import com.algaworks.algamoney.service.exception.PessoaInexistenteOuInativoException;
-import com.algaworks.algamoney.storage.S3;
+//import com.algaworks.algamoney.storage.S3;
 
 import net.sf.jasperreports.engine.JRException;
 

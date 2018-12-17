@@ -1,6 +1,6 @@
 package com.algaworks.algamoney.storage;
 
-import java.io.IOException;
+/*import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.UUID;
@@ -25,7 +25,7 @@ import com.amazonaws.services.s3.model.Tag;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Component
+@Component*/
 public class S3 {
 /*
 	@Autowired
