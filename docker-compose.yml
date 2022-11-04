@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+    command: bash start-dev.sh
+    ports:
+      - "8080:8080"
+      - "5005:5005"
+    environment:
+      GRADLE_USER_HOME: /box
+    volumes:
+      - .:/algamoney-api
+      - box:/box
+    depends_on:
+      - db
+    networks:
+      - algamoney-net
+  db:
+    image: mysql:8.0.31
+    environment:
+      MYSQL_USER: algamoneyapi
+      MYSQL_PASSWORD: algamoneyapi
+      MYSQL_ROOT_PASSWORD: algamoneyapi
+      MYSQL_DATABASE: algamoneyapi
+    ports:
+      - "3306:3306"
+    networks:
+      - algamoney-net
+  box:
+    image: busybox
+    volumes:
+      - /box
+    networks:
+      - algamoney-net
+networks:
+  algamoney-net:
+    name: algamoney-net
+    external: true
+volumes:
+  db:
+  box:

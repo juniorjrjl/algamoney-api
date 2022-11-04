@@ -26,11 +26,11 @@ import com.algaworks.algamoney.repository.UsuarioRepository;
 import com.algaworks.algamoney.service.exception.PessoaInexistenteOuInativoException;
 
 import lombok.extern.slf4j.Slf4j;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+//import net.sf.jasperreports.engine.JRException;
+//import net.sf.jasperreports.engine.JasperExportManager;
+//import net.sf.jasperreports.engine.JasperFillManager;
+//import net.sf.jasperreports.engine.JasperPrint;
+//import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Service
 @Slf4j
@@ -113,15 +113,16 @@ public class LancamentoService {
 		return lancamentoSalvo.get();
 	}
 	
-	public byte[] relatorioPorPessoa(LocalDate inicio, LocalDate fim) throws JRException {
-		List<LancamentoEstatisticaPessoa> dados = lancamentoRepository.porPessoa(inicio, fim);
+	public byte[] relatorioPorPessoa(LocalDate inicio, LocalDate fim) {//throws JRException {
+		/*List<LancamentoEstatisticaPessoa> dados = lancamentoRepository.porPessoa(inicio, fim);
 		Map<String, Object> parametros = new HashMap<String, Object>();
 		parametros.put("DT_INICIO", Date.valueOf(inicio));
 		parametros.put("DT_FIM", Date.valueOf(fim));
 		parametros.put("RERTO_LOCALE", new Locale("pt", "BR"));
 		InputStream inputStream = this.getClass().getResourceAsStream("/relatorios/lancamentos-por-pessoa.jasper");
 		JasperPrint jasperPrint = JasperFillManager.fillReport(inputStream, parametros, new JRBeanCollectionDataSource(dados));
-		return JasperExportManager.exportReportToPdf(jasperPrint);
+		return JasperExportManager.exportReportToPdf(jasperPrint);*/
+		return null;
 	}
 	
 }

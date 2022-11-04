@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
@@ -21,6 +22,7 @@ import com.algaworks.algamoney.config.token.CustomTokenEnhancer;
 
 @Profile("oauth-security")
 @Configuration
+@EnableAuthorizationServer
 public class AutorizationServerConfig extends AuthorizationServerConfigurerAdapter{
 
 	@Autowired
@@ -55,7 +57,7 @@ public class AutorizationServerConfig extends AuthorizationServerConfigurerAdapt
 	@Bean
 	public JwtAccessTokenConverter accessTokenConverter() {
 		JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
-		accessTokenConverter.setSigningKey("algaworks");
+		accessTokenConverter.setSigningKey("3032885ba9cd6621bcc4e7d6b6c35c2b");
 		return accessTokenConverter;
 	}
 
