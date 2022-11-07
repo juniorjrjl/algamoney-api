@@ -5,6 +5,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Collection;
+import java.util.List;
+
 @ConfigurationProperties("algamoney")
 public class AlgamoneyApiProperty {
 
@@ -26,7 +29,10 @@ public class AlgamoneyApiProperty {
 	public static class Seguranca{
 		private String origemPermitida = "/**";
 		private boolean enableHttps;
-	}
+		private List<String> redirectsPermitidos;
+		private String authServerUrl;
+
+    }
 	
 	@Getter @Setter
 	public static class Mail{

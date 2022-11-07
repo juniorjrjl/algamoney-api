@@ -35,3 +35,6 @@ algamoney:
     port: 587
     username: ##email
     password: ##senha
+  seguranca:
+    redirects-permitidos: http://local-algamoney.com:4200/authorized
+    auth-server-url: http://localhost:8080/

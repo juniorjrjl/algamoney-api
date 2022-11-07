@@ -52,7 +52,7 @@ test{
 }
 
 ext{
-	oauth2Verison = '2.5.2.RELEASE'
+	oauth2Verison = '0.3.1'
 	jwtVersion = '1.1.1.RELEASE'
 	jasperreportsVersion = '6.5.1'
 	jasperreportsFunctionsVersion = '6.5.1'
@@ -73,8 +73,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation "org.springframework.boot:spring-boot-starter-thymeleaf"
 	implementation "org.springframework.boot:spring-boot-starter-web"
-	implementation "org.springframework.security.oauth:spring-security-oauth2:${oauth2Verison}"
-	implementation "org.springframework.security:spring-security-jwt:${jwtVersion}"
+	implementation "org.springframework.security:spring-security-oauth2-authorization-server:$oauth2Verison"
+	implementation "org.springframework.security:spring-security-jwt:$jwtVersion"
 	implementation "org.thymeleaf.extras:thymeleaf-extras-java8time"
 
 	compileOnly "org.projectlombok:lombok"
