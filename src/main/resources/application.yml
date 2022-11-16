@@ -36,5 +36,5 @@ algamoney:
     username: ##email
     password: ##senha
   seguranca:
-    redirects-permitidos: http://local-algamoney.com:4200/authorized
+    redirects-permitidos: http://local.algatestes:4200/authorized
     auth-server-url: http://localhost:8080/
